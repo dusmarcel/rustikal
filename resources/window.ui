@@ -31,14 +31,14 @@
                 </child>
                 <child>
                     <object class="GtkBox">
-			            <property name="orientation">vertical</property>
+                        <property name="orientation">vertical</property>
                         <property name="hexpand">True</property>
                         <child>
-			                <object class="AdwHeaderBar">
+                            <object class="AdwHeaderBar">
                                 <binding name="show-start-title-buttons">
-				                    <lookup name="folded">leaflet</lookup>
-				                </binding>
-			                </object>
+                                    <lookup name="folded">leaflet</lookup>
+                                </binding>
+                            </object>
                         </child>
                         <child>
                             <object class="GtkLabel">
@@ -50,6 +50,6 @@
             </object>
         </property>
     </object>
-<!--    <menu id="main-menu">
-    </menu>  -->
+    <!--    <menu id="main-menu">
+        </menu>  -->
 </interface>
