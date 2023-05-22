@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
+    <menu id="main-menu">
+    </menu>
     <object class="AdwApplicationWindow" id="app_window">
         <property name="title" translatable="yes">rustikal</property>
         <property name="content">
             <object class="AdwLeaflet" id="leaflet">
+                <property name="can-navigate-back">True</property>
                 <child>
                     <object class="GtkBox">
                         <property name="orientation">vertical</property>
@@ -35,9 +38,25 @@
                         <property name="hexpand">True</property>
                         <child>
                             <object class="AdwHeaderBar">
-                                <binding name="show-start-title-buttons">
-                                    <lookup name="folded">leaflet</lookup>
-                                </binding>
+                                <property name="title-widget">
+                                    <object class="AdwWindowTitle" />
+                                </property>
+                                <child type="start">
+                                    <object class="GtkButton" id="back_button">
+                                        <binding name="visible">
+                                            <lookup name="folded">leaflet</lookup>
+                                        </binding>
+                                        <property name="icon-name">go-previous-symbolic</property>
+                                        <property name="tooltip-text" translatable="yes">Back</property>
+                                    </object>
+                                </child>
+                                <child type="end">
+                                    <object class="GtkMenuButton">
+                                        <property name="icon-name">open-menu-symbolic</property>
+                                        <property name="menu-model">main-menu</property>
+                                        <property name="tooltip-text" translatable="yes">Main Menu</property>
+                                    </object>
+                                </child>
                             </object>
                         </child>
                         <child>
@@ -50,6 +69,4 @@
             </object>
         </property>
     </object>
-    <!--    <menu id="main-menu">
-        </menu>  -->
 </interface>
