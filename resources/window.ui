@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
     <menu id="main-menu">
+        <item>
+            <attribute name="label" translatable="yes">_Close window</attribute>
+            <attribute name="action">window.close</attribute>
+        </item>
     </menu>
     <object class="AdwApplicationWindow" id="app_window">
         <property name="title" translatable="yes">rustikal</property>
