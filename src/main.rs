@@ -1,5 +1,5 @@
 use adw::prelude::*;
-use adw::{Application, gio, glib};
+use adw::{Application, ApplicationWindow, gio, glib};
 use adw::gtk::Builder;
 
 const APP_ID: &str = "org.keienb.rustikal";
@@ -14,8 +14,15 @@ fn main() -> glib::ExitCode {
 
 fn build_ui(app: &Application) {
     let builder = Builder::from_resource("/org/keienb/rustikal/window.ui");
-    let window:adw::ApplicationWindow = builder.object("app_window")
+    let window :ApplicationWindow = builder.object("app_window")
         .expect("Failed to load application window from resource");
+    setup_actions(&window);
     app.add_window(&window);
     window.present()
+}
+
+fn setup_actions(window: &ApplicationWindow) {
+    let action_open = gio::SimpleAction::new("open", None);
+    action_open.connect_activate(|_, _| println!("Hallo, open Welt!"));
+    window.add_action(&action_open);
 }

@@ -2,6 +2,10 @@
 <interface>
     <menu id="main-menu">
         <item>
+            <attribute name="label" translatable="yes">_Open</attribute>
+            <attribute name="action">win.open</attribute>
+        </item>
+        <item>
             <attribute name="label" translatable="yes">_Close window</attribute>
             <attribute name="action">window.close</attribute>
         </item>
