@@ -8,6 +8,7 @@ fn main() -> glib::ExitCode {
     gio::resources_register_include!("org_keienb_rustikal.gresource")
         .expect("Failed to register resources.");
     let app = Application::builder().application_id(APP_ID).build();
+    app.connect_startup(setup_shortcuts);
     app.connect_activate(build_ui);
     app.run()
 }
@@ -19,6 +20,11 @@ fn build_ui(app: &Application) {
     setup_actions(&window);
     app.add_window(&window);
     window.present()
+}
+
+fn setup_shortcuts(app: &Application) {
+    app.set_accels_for_action("win.open", &["<Ctrl>o"]);
+    app.set_accels_for_action("window.close", &["<Ctrl>q"]);
 }
 
 fn setup_actions(window: &ApplicationWindow) {
