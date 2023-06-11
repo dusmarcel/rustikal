@@ -1,6 +1,7 @@
 use adw::prelude::*;
 use adw::{Application, ApplicationWindow, gio, glib};
-use adw::gtk::Builder;
+use adw::glib::clone;
+use gtk4;
 
 const APP_ID: &str = "org.keienb.rustikal";
 
@@ -14,7 +15,7 @@ fn main() -> glib::ExitCode {
 }
 
 fn build_ui(app: &Application) {
-    let builder = Builder::from_resource("/org/keienb/rustikal/window.ui");
+    let builder = gtk4::Builder::from_resource("/org/keienb/rustikal/window.ui");
     let window :ApplicationWindow = builder.object("app_window")
         .expect("Failed to load application window from resource");
     setup_actions(&window);
@@ -29,6 +30,9 @@ fn setup_shortcuts(app: &Application) {
 
 fn setup_actions(window: &ApplicationWindow) {
     let action_open = gio::SimpleAction::new("open", None);
-    action_open.connect_activate(|_, _| println!("Hallo, open Welt!"));
+    action_open.connect_activate(clone!(@weak window => move |_, _| {
+        let file_dialog = gtk4::FileDialog::builder().build();
+        file_dialog.open(Some(&window), None::<&gio::Cancellable>, |_| { println!("open!") });
+    }));
     window.add_action(&action_open);
 }
