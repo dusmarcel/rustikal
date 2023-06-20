@@ -1,6 +1,7 @@
 use adw::prelude::*;
 use adw::{Application, ApplicationWindow, gio, glib};
-use adw::glib::clone;
+//use adw::gio::File;
+use adw::glib::{clone, MainContext};
 use gtk4;
 
 const APP_ID: &str = "org.keienb.rustikal";
@@ -29,10 +30,15 @@ fn setup_shortcuts(app: &Application) {
 }
 
 fn setup_actions(window: &ApplicationWindow) {
+    let main_ctxt = MainContext::default();
     let action_open = gio::SimpleAction::new("open", None);
     action_open.connect_activate(clone!(@weak window => move |_, _| {
-        let file_dialog = gtk4::FileDialog::builder().build();
-        file_dialog.open(Some(&window), None::<&gio::Cancellable>, |_| { println!("open!") });
+        main_ctxt.spawn_local(clone!(@weak window => async move {
+            let file_dialog = gtk4::FileDialog::builder().build();
+            let result = file_dialog.open_future(Some(&window)).await;//, None::<&gio::Cancellable>, || {
+            let p = result.unwrap().path().unwrap();
+            println!("result's path: {p:#?}");
+        }));
     }));
     window.add_action(&action_open);
 }
