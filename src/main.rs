@@ -34,7 +34,7 @@ fn setup_actions(window: &ApplicationWindow) {
     action_open.connect_activate(clone!(@weak window => move |_, _| {
         main_ctxt.spawn_local(clone!(@weak window => async move {
             let file_dialog = gtk4::FileDialog::builder().modal(false).build();
-            let result = file_dialog.open_future(Some(&window)).await;//, None::<&gio::Cancellable>, || {
+            let result = file_dialog.open_future(Some(&window)).await;
             let p = result.unwrap().path().unwrap();
             println!("result's path: {p:#?}");
         }));
