@@ -35,8 +35,9 @@ fn setup_actions(window: &ApplicationWindow) {
         main_ctxt.spawn_local(clone!(@weak window => async move {
             let file_dialog = gtk4::FileDialog::builder().modal(false).build();
             let result = file_dialog.open_future(Some(&window)).await;
-            let p = result.unwrap().path().unwrap();
-            println!("result's path: {p:#?}");
+            let path = result.unwrap().path().unwrap();
+            let f = path.file_name().unwrap();
+            println!("f = {f:#?}");
         }));
     }));
     window.add_action(&action_open);
